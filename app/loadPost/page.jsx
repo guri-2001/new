@@ -1,6 +1,8 @@
 "use client"
 import Header from '@/components/Header';
 import { useToast } from '@chakra-ui/react';
+import axios from 'axios';
+import Link from 'next/link';
 import React, { useState } from 'react'
 
 const LoadPost = () => {
@@ -24,24 +26,21 @@ const LoadPost = () => {
       return;
     }
 
-    try {
-      let res = await fetch("/api/addPost", {
-        method: 'POST',
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name,
-          fromCity,
-          toCity,
-          date,
-          loadInfo,
-        })
-      })
-      console.log(res);
+    const newObj = {
+      name: name,
+      fromCity: fromCity,
+      toCity: toCity,
+      date: date,
+      loadInfo: loadInfo,
+    }
 
-      res = await res.json();
+    // console.log(newObj);
+    const res = axios.post('/api/newNote', newObj)
+      .then(() => {
+        // alert('New note Added successfully')
+      
+      })
+
       toast({
         title: 'Added Successfully',
         status: 'success',
@@ -50,14 +49,13 @@ const LoadPost = () => {
         position: 'top',
       })
 
-      setName("");
-      setLoadInfo("");
-      setFromCity("");
-      setToCity("");
-      setDate("");
-    } catch (error) {
-      console.log(error);
-    }
+
+    setName("")
+    setFromCity("")
+    setToCity("")
+    setDate("")
+    setLoadInfo("")
+
   }
 
   // ---------------- HandleSubmit Button End ------------------>
@@ -65,19 +63,13 @@ const LoadPost = () => {
   return (
     <div>
 
-      {/* ---------------- Header Start ------------------> */}
-
-      <Header />
-
-      {/* ---------------- Header End ------------------> */}
-
       {/* ---------------- Form Start ------------------> */}
 
+      <Link href={"allloads"} className="bg-cyan-400 px-3 py-2 ml-5">All loads</Link>
       <div className="container" style={{ width: "50%" }}>
-        <h1>Add Load</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="Name" className="form-label">Name</label>
+          <label className='text-2xl'>Name</label>
             <input
               type="text"
               className="form-control"
@@ -90,7 +82,7 @@ const LoadPost = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="From" className="form-label">From</label>
+            <label className='text-2xl' htmlFor="From" >From</label>
             <input
               type="text"
               className="form-control"
@@ -103,7 +95,7 @@ const LoadPost = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="To" className="form-label">To</label>
+            <label htmlFor="To" cclassName='text-2xl'>To</label>
             <input
               type="text"
               className="form-control"
@@ -116,7 +108,7 @@ const LoadPost = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="date" className="form-label">Date</label>
+            <label htmlFor="date" className='text-2xl'>Date</label>
             <input
               type="date"
               className="form-control"
@@ -130,7 +122,7 @@ const LoadPost = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="content" className="form-label">Load Info</label>
+            <label htmlFor="content" className='text-2xl'>Load Info</label>
             <textarea
               className="form-control"
               id="content"
@@ -149,7 +141,7 @@ const LoadPost = () => {
             </div>
           }
           <div>
-            <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+          <button type='submit' className='w-full text-xl bg-green-400 px-3 py-2 mt-3 rounded-lg'  >Submit</button>
           </div>
         </form>
       </div>
