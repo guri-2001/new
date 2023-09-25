@@ -6,6 +6,7 @@
     display: grid;
     grid-template-columns: 400px 1fr 400px;
     background-color: #fff;
+    z-index: 1000;
 }
 
 .link {
@@ -29,36 +30,6 @@
     background-color: rgb(14 165 233);
     color: red;
 }
-
-/* #getBtn::before{
-    content: '';
-    position: absolute;
-    width: 50%;
-    height: 100%;
-    left: 0;
-    bottom: 0;
-    background-color: red;
-    transition: all 0.5s;
-}
-#getBtn::after{
-    content: '';
-    position: absolute;
-    width: 50%;
-    height: 100%;
-    right: 0;
-    bottom: 0;
-    background-color: red;
-    transition: all 0.5s;
-}
-#getBtn:hover::before{
-    width: 0;
-    height: 0;
-}
-#getBtn:hover::after{
-    width: 0;
-    height: 0;
-} */
-
 .profileIcon_div{
     display: flex;
     flex-direction: column;

@@ -8,11 +8,39 @@ async function handler(req, res) {
     }
 
     try {
-        const { name, fromCity, toCity, date, loadInfo } = req.body;
+        const {   
+            PcityName,
+            Pdate,
+            PTimeOne,
+            PTimeTwo,
+            DcityName,
+            Ddate,
+            DTimeOne,
+            DTimeTwo,
+            price,
+            equipment,
+            weight,
+            distance,
+            commodity,
+            loadInfo, } = req.body;
         await mongoose.connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
         }).then(() => console.log("DB connected"));
-        let newNote = new Note({ name, fromCity, toCity, date, loadInfo });
+        let newNote = new Note({    
+            PcityName,
+            Pdate,
+            PTimeOne,
+            PTimeTwo,
+            DcityName,
+            Ddate,
+            DTimeOne,
+            DTimeTwo,
+            price,
+            equipment,
+            weight,
+            distance,
+            commodity,
+            loadInfo, });
         await newNote.save();
         // console.log(newNote);
     } catch (error) {

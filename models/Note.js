@@ -1,27 +1,53 @@
 import mongoose, { Schema } from "mongoose";
 
 const noteSchema = new Schema({
-    name: {
+    PcityName: {
         type: String,
     },
-    fromCity: {
+    Pdate: {
+        type: Date,
+    },
+    PTimeOne: {
         type: String,
     },
-    toCity: {
+    PTimeTwo: {
         type: String,
     },
-    date: {
+    DcityName: {
+        type: String,
+    },
+    Ddate: {
+        type: Date,
+    },
+    DTimeOne: {
+        type: String,
+    },
+    DTimeTwo: {
+        type: String,
+    },
+    price: {
+        type: String,
+    },
+    equipment: {
+        type: String,
+    },
+    weight: {
+        type: String,
+    },
+    distance: {
+        type: String,
+    },
+    commodity: {
         type: String,
     },
     loadInfo: {
         type: String,
     },
-    createdAt: {
-        type: Date,
-        default: new Date(),
-    }
-})
+},
+    {
+        timestamps: true,
+    })
 
 
 mongoose.models = {}
-module.exports = mongoose.model("Note",noteSchema);
+module.exports = mongoose.model("Note", noteSchema);

@@ -6,10 +6,9 @@ export default async function getPost (req, res) {
         const db = client.db("facebook");
 
         const movies = await db
-            .collection("userdata")
+            .collection("notes")
             .find({})
             .sort({ _id: 1 })
-            .limit(10)
             .toArray();
 
         res.json(movies);

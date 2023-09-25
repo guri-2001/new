@@ -242,13 +242,20 @@ const updateNote = async (noteId) => {
                                 }}
                             >
                                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                    <h4>{movie.name}</h4>
-                                    <Link href={'loadDetail'} className="bg-cyan-500 px-3 py-1 text-white text-lg" >View Detail</Link>
+                                    <h4>{movie.PcityName}</h4>
+                                    
+                                <p>{movie.Pdate}, {movie.PTimeOne}-{movie.PTimeTwo} </p>
                                 </div>
-                                <h6>{movie.date}</h6>
+                                <div style={{ display: "flex", flexDirection:"column", justifyContent: "space-between" }}>
+                                    <h4>{movie.DcityName}</h4>
+                                    
+                                <p>{movie.Ddate}, {movie.DTimeOne}-{movie.DTimeTwo} </p>
+                                </div>
                                 <p>
                                     {movie.loadInfo}
+                                    {movie.loadInfo}
                                 </p>
+                                <Link href={'loadDetail'} className="bg-cyan-500 px-3 py-1 text-white text-lg" >View Detail</Link>
                             </div>
                         </div>
                     ))}
