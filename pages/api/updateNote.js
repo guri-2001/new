@@ -8,7 +8,21 @@ async function handler(req, res) {
     }
 
     const {id} = req.query
-    const { name, fromCity, toCity, date, loadInfo } = req.body;
+    const {   
+        PcityName,
+        Pdate,
+        PTimeOne,
+        PTimeTwo,
+        DcityName,
+        Ddate,
+        DTimeOne,
+        DTimeTwo,
+        price,
+        equipment,
+        weight,
+        distance,
+        commodity,
+        loadInfo, } = req.body;
 
     try {
         await mongoose.connect(process.env.MONGODB_URI, {
@@ -20,7 +34,21 @@ async function handler(req, res) {
         console.log(error);
     }
     try {
-        const updateNote = await Note.findByIdAndUpdate(id, { name, fromCity, toCity, date, loadInfo });
+        const updateNote = await Note.findByIdAndUpdate(id, {    
+            PcityName,
+            Pdate,
+            PTimeOne,
+            PTimeTwo,
+            DcityName,
+            Ddate,
+            DTimeOne,
+            DTimeTwo,
+            price,
+            equipment,
+            weight,
+            distance,
+            commodity,
+            loadInfo,});
         // console.log(updateNote);
         res.status(200).json(updateNote)
     } catch (error) {

@@ -14,6 +14,7 @@ import {
     TableContainer,
     Button,
     Input,
+    Tooltip,
 } from '@chakra-ui/react'
 import Link from "next/link";
 import { MdDelete } from 'react-icons/md';
@@ -41,39 +42,39 @@ const Alldata = ({ movies, alldata }) => {
     const [noteId, setNoteId] = useState('');
 
 
-   // -----------------Delete User Start ------------------->
+    // -----------------Delete User Start ------------------->
 
-   const deleteNote = async (noteId) => {
-    axios.delete(`/api/deleteUser?id=${noteId}`).then(() => {
-        router.refresh()
-    })
-}
-
-// ------------- Delete User End ----------------->
-
-
-// ------------- Edit User Start ----------------->
-
-const editForm = (name, email, noteId) => {
-    setVisibility(visibility => !visibility)
-    setName(name)
-    setEmail(email)
-    setNoteId(noteId)
-}
-
-const updateNote = async (noteId) => {
-    const noteObj = {
-        name: name,
-        email: email,
-    }
-    // console.log(noteObj);
-    await axios.put(`/api/updateUser?id=${noteId}`, noteObj)
-        .then(() => {
-            router.refresh();
+    const deleteNote = async (noteId) => {
+        axios.delete(`/api/deleteUser?id=${noteId}`).then(() => {
+            router.refresh()
         })
-}
+    }
 
-// ------------- Edit User End ----------------->
+    // ------------- Delete User End ----------------->
+
+
+    // ------------- Edit User Start ----------------->
+
+    const editForm = (name, email, noteId) => {
+        setVisibility(visibility => !visibility)
+        setName(name)
+        setEmail(email)
+        setNoteId(noteId)
+    }
+
+    const updateNote = async (noteId) => {
+        const noteObj = {
+            name: name,
+            email: email,
+        }
+        // console.log(noteObj);
+        await axios.put(`/api/updateUser?id=${noteId}`, noteObj)
+            .then(() => {
+                router.refresh();
+            })
+    }
+
+    // ------------- Edit User End ----------------->
 
 
     //<---------------- Admin Part Start ------------------->
@@ -184,9 +185,9 @@ const updateNote = async (noteId) => {
         // <------------------ Date Picker Part End -------------------->
 
         return (
-            <div style={{ display: "grid", gridTemplateColumns: "35% 65%", padding: "10px 30px", height: "100vh", backgroundColor: "rgb(241 245 249)" }} >
+            <div style={{ display: "grid", gridTemplateColumns: "25% 1fr", padding: "10px 30px", height: "100vh", backgroundColor: "rgb(241 245 249)" }} >
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                    <h1> Welcome <span style={{ textDecoration: "underline" }}>{session?.user?.name}</span> </h1>
+                    <h1> Welcome <span >{session?.user?.name}</span> </h1>
 
                     {/* <----------------Filter Area start----------------> */}
 
@@ -225,39 +226,38 @@ const updateNote = async (noteId) => {
 
                 {/* <----------------Filter Area End----------------> */}
 
-                <div style={{ padding: "0 50px" }} >
-                    {loadData.map((movie) => (
-                        <div key={movie._id}>
-                            <div
-                                style={{
-                                    background: "#fff",
-                                    border: "1px solid #e9ecef",
-                                    padding: "20px",
-                                    borderRadius: "5px",
-                                    width: "100%",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    margin: "auto",
-                                    marginTop: "20px",
-                                }}
-                            >
-                                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                    <h4>{movie.PcityName}</h4>
-                                    
-                                <p>{movie.Pdate}, {movie.PTimeOne}-{movie.PTimeTwo} </p>
+                <div className="w-full" style={{padding:"0 100px"}} >
+                    {loadData.map((note) => (
+                        <>
+                            <div className=' m-auto mt-5 shadow-lg bg-white py-2' style={{
+                                display: "grid", gridTemplateColumns: "1fr 1fr 500px"
+                                , width: "1fr"
+                            }}>
+                                <div className='w-full flex justify-center items-center flex-col h-full'>
+                                    <div className='flex flex-col gap-2'>
+                                        <span className='text-5xl font-bold text-cyan-600'>{note.price}</span>
+                                        <span className='font-semibold text-sm text-slate-500'>FTL- {note.equipment} </span>
+                                    </div>
                                 </div>
-                                <div style={{ display: "flex", flexDirection:"column", justifyContent: "space-between" }}>
-                                    <h4>{movie.DcityName}</h4>
-                                    
-                                <p>{movie.Ddate}, {movie.DTimeOne}-{movie.DTimeTwo} </p>
+                                <div>
+                                    <div className='flex flex-col w-full'>
+                                        <b className='flex justify-end'>{note.PcityName}</b>
+                                        {/* <span className='flex justify-end text-base font-bold'>{note.PcityName}</span> */}
+                                        <span className='text-sm font-medium flex justify-end'> {note.Pdate}, {note.PTimeOne}-{note.PTimeTwo} </span>
+                                    </div>
+                                    <br />
+                                    <div className='flex flex-col w-full'>
+                                        <b className='flex justify-end'>{note.PcityName}</b>
+                                        <span className='text-sm font-medium flex justify-end'> {note.Pdate}, {note.PTimeOne}-{note.PTimeTwo} </span>
+                                    </div>
                                 </div>
-                                <p>
-                                    {movie.loadInfo}
-                                    {movie.loadInfo}
-                                </p>
-                                <Link href={'loadDetail'} className="bg-cyan-500 px-3 py-1 text-white text-lg" >View Detail</Link>
+                                <div className=' flex items-center px-5 justify-center'>
+                                    <Tooltip hasArrow label='View Details' bg='gray.300' color='black'>
+                                        <Link href={'loadDetail'} className="bg-cyan-600 px-3 py-1 text-white text-lg" >View Detail</Link>
+                                    </Tooltip>
+                                </div>
                             </div>
-                        </div>
+                        </>
                     ))}
                 </div>
             </div>

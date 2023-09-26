@@ -23,6 +23,8 @@ const LoadPost = () => {
   const [loadInfo, setLoadInfo] = useState('');
   const [error, setError] = useState('');
 
+  console.log(Pdate.toString());
+
   // ---------------- HandleSubmit Button Start ------------------>
 
   const handleSubmit = async (e) => {

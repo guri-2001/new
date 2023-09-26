@@ -5,7 +5,7 @@ const noteSchema = new Schema({
         type: String,
     },
     Pdate: {
-        type: Date,
+        type: String,
     },
     PTimeOne: {
         type: String,
@@ -17,7 +17,7 @@ const noteSchema = new Schema({
         type: String,
     },
     Ddate: {
-        type: Date,
+        type: String,
     },
     DTimeOne: {
         type: String,
