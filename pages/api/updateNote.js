@@ -8,12 +8,17 @@ async function handler(req, res) {
     }
 
     const {id} = req.query
-    const {   
+    const {  
+        reffNo, 
         PcityName,
+        PState,
+        PZipCode,
         Pdate,
         PTimeOne,
         PTimeTwo,
         DcityName,
+        DState,
+        DZipCode,
         Ddate,
         DTimeOne,
         DTimeTwo,
@@ -22,6 +27,8 @@ async function handler(req, res) {
         weight,
         distance,
         commodity,
+        multiple,
+        rounds,
         loadInfo, } = req.body;
 
     try {
@@ -35,11 +42,16 @@ async function handler(req, res) {
     }
     try {
         const updateNote = await Note.findByIdAndUpdate(id, {    
+            reffNo,
             PcityName,
+            PState,
+            PZipCode,
             Pdate,
             PTimeOne,
             PTimeTwo,
             DcityName,
+            DState,
+            DZipCode,
             Ddate,
             DTimeOne,
             DTimeTwo,
@@ -48,6 +60,8 @@ async function handler(req, res) {
             weight,
             distance,
             commodity,
+            multiple,
+            rounds,
             loadInfo,});
         // console.log(updateNote);
         res.status(200).json(updateNote)

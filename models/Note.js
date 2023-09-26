@@ -1,7 +1,16 @@
 import mongoose, { Schema } from "mongoose";
 
 const noteSchema = new Schema({
+    reffNo: {
+        type: String,
+    },
     PcityName: {
+        type: String,
+    },
+    PState: {
+        type: String,
+    },
+    PZipCode: {
         type: String,
     },
     Pdate: {
@@ -14,6 +23,12 @@ const noteSchema = new Schema({
         type: String,
     },
     DcityName: {
+        type: String,
+    },
+    DState: {
+        type: String,
+    },
+    DZipCode: {
         type: String,
     },
     Ddate: {
@@ -38,6 +53,12 @@ const noteSchema = new Schema({
         type: String,
     },
     commodity: {
+        type: String,
+    },
+    multiple: {
+        type: String,
+    },
+    rounds: {
         type: String,
     },
     loadInfo: {

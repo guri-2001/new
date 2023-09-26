@@ -241,13 +241,13 @@ const Alldata = ({ movies, alldata }) => {
                                 </div>
                                 <div>
                                     <div className='flex flex-col w-full'>
-                                        <b className='flex justify-end'>{note.PcityName}</b>
+                                        <b className='flex justify-end'>{note.PcityName}, {note.PState}</b>
                                         {/* <span className='flex justify-end text-base font-bold'>{note.PcityName}</span> */}
                                         <span className='text-sm font-medium flex justify-end'> {note.Pdate}, {note.PTimeOne}-{note.PTimeTwo} </span>
                                     </div>
                                     <br />
                                     <div className='flex flex-col w-full'>
-                                        <b className='flex justify-end'>{note.PcityName}</b>
+                                        <b className='flex justify-end'>{note.PcityName}, {note.DState}</b>
                                         <span className='text-sm font-medium flex justify-end'> {note.Pdate}, {note.PTimeOne}-{note.PTimeTwo} </span>
                                     </div>
                                 </div>

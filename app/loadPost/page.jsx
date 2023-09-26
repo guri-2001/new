@@ -1,5 +1,5 @@
 "use client"
-import { Input, useToast } from '@chakra-ui/react';
+import { Checkbox, Input, Select, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useState } from 'react'
@@ -7,11 +7,16 @@ import React, { useState } from 'react'
 const LoadPost = () => {
   const toast = useToast()
 
+  const [reffNo, setReffNo] = useState('');
   const [PcityName, setPCityName] = useState('');
+  const [PState, setPState] = useState('');
+  const [PZipCode, setPZipCode] = useState('');
   const [Pdate, setPDate] = useState('');
   const [PTimeOne, setPTimeOne] = useState('');
   const [PTimeTwo, setPTimeTwo] = useState('');
   const [DcityName, setDCityName] = useState('');
+  const [DState, setDState] = useState('');
+  const [DZipCode, setDZipCode] = useState('');
   const [Ddate, setDDate] = useState('');
   const [DTimeOne, setDTimeOne] = useState('');
   const [DTimeTwo, setDTimeTwo] = useState('');
@@ -23,7 +28,8 @@ const LoadPost = () => {
   const [loadInfo, setLoadInfo] = useState('');
   const [error, setError] = useState('');
 
-  console.log(Pdate.toString());
+  const [multiple, setMultiple] = useState('');
+  const [rounds, setRounds] = useState('');
 
   // ---------------- HandleSubmit Button Start ------------------>
 
@@ -38,11 +44,16 @@ const LoadPost = () => {
 
 
     const newObj = {
+      reffNo,
       PcityName,
+      PState,
+      PZipCode,
       Pdate,
       PTimeOne,
       PTimeTwo,
       DcityName,
+      DState,
+      DZipCode,
       Ddate,
       DTimeOne,
       DTimeTwo,
@@ -51,10 +62,12 @@ const LoadPost = () => {
       weight,
       distance,
       commodity,
+      multiple,
+      rounds,
       loadInfo,
     }
 
-
+    console.log(newObj);
     console.log(newObj);
     const res = axios.post('/api/newNote', newObj)
       .then(() => {
@@ -69,13 +82,16 @@ const LoadPost = () => {
       position: 'top',
     })
 
-    console.log(res);
-
+    setReffNo("")
     setPCityName("")
+    setPState("")
+    setPZipCode("")
     setPDate("")
     setPTimeOne("")
     setPTimeTwo("")
     setDCityName("")
+    setDState("")
+    setDZipCode("")
     setDDate("")
     setDTimeOne("")
     setDTimeTwo("")
@@ -84,6 +100,8 @@ const LoadPost = () => {
     setWeight("")
     setDistance("")
     setCommodity("")
+    setMultiple("")
+    setRounds("")
     setLoadInfo("")
 
   }
@@ -103,23 +121,64 @@ const LoadPost = () => {
             {/* --------------Pickup Area Start--------------- */}
 
             <div className='w-full'>
+              <div>
+                <label className='text-2xl' htmlFor="reffNo" >Reff No</label>
+                <Input
+                  size='xs'
+                  type="text"
+                  className="form-control w-40"
+                  id="reffNo"
+                  name="reffNo"
+                  placeholder='Reff no'
+                  value={reffNo}
+                  onChange={e => setReffNo(e.target.value)}
+                />
+              </div>
               <h2>Pick Up</h2>
               <div className=' px-3 py-3'>
-                <div className="mb-2 w-full">
-                  <label className='text-2xl'>City Name</label>
-                  <Input
-                    size='md'
-                    type="text"
-                    className="form-control"
-                    id="PcityName"
-                    name="PcityName"
-                    placeholder="Enter your City Name"
-                    autoComplete='off'
-                    value={PcityName}
-                    onChange={e => setPCityName(e.target.value)}
-                  />
-                </div>
                 <div className='flex gap-3'>
+                  <div className="mb-2 w-1/2">
+                    <label className='text-2xl' htmlFor="PcityName" >City</label>
+                    <Input
+                      size='md'
+                      type="text"
+                      className="form-control"
+                      id="PcityName"
+                      name="PcityName"
+                      placeholder='City Name'
+                      value={PcityName}
+                      onChange={e => setPCityName(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-2 w-1/3">
+                    <label className='text-2xl' htmlFor="state" >State</label>
+                    <Input
+                      size='md'
+                      type="text"
+                      className="form-control"
+                      id="state"
+                      name="state"
+                      placeholder='State Name'
+                      value={PState}
+                      onChange={e => setPState(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-2 w-1/3">
+                    <label className='text-2xl' htmlFor="zip_code" >Zip Code</label>
+                    <Input
+                      size='md'
+                      type="text"
+                      className="form-control"
+                      id="zip_code"
+                      name="zip_code"
+                      placeholder='Zip Code'
+                      value={PZipCode}
+                      onChange={e => setPZipCode(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className='flex gap-3 mt-2'>
                   <div className="mb-2 w-1/2">
                     <label className='text-2xl' htmlFor="Pdate" >Date</label>
                     <Input
@@ -133,7 +192,7 @@ const LoadPost = () => {
                     />
                   </div>
                   <div className="mb-2 w-1/3">
-                    <label className='text-2xl' htmlFor="time" >Time</label>
+                    <label className='text-2xl' htmlFor="time" >Time Range</label>
                     <Input
                       size='md'
                       type="time"
@@ -145,7 +204,7 @@ const LoadPost = () => {
                     />
                   </div>
                   <div className="mb-2 w-1/3">
-                    <label className='text-2xl' htmlFor="time" >Time</label>
+                    <label className='text-2xl' htmlFor="time" >Time Range</label>
                     <Input
                       size='md'
                       type="time"
@@ -166,9 +225,9 @@ const LoadPost = () => {
 
             <div className='w-full '>
               <h2>Delivery</h2>
-              <div className=' px-3 py-3'>
-                <div className="mb-2 w-full">
-                  <label className='text-2xl'>City Name</label>
+              <div className='flex gap-3 px-3'>
+                <div className="mb-2 w-1/2">
+                  <label className='text-2xl'>City</label>
                   <Input
                     size='md'
                     type="text"
@@ -181,6 +240,38 @@ const LoadPost = () => {
                     onChange={e => setDCityName(e.target.value)}
                   />
                 </div>
+                <div className="mb-2 w-1/3">
+                  <label className='text-2xl' htmlFor="state" >State</label>
+                  <Input
+                    size='md'
+                    type="text"
+                    className="form-control"
+                    id="state"
+                    name="state"
+                    placeholder='State Name'
+                    value={DState}
+                    onChange={e => setDState(e.target.value)}
+                  />
+                </div>
+                <div className="mb-2 w-1/3">
+                  <label className='text-2xl' htmlFor="zip_code" >Zip Code</label>
+                  <Input
+                    size='md'
+                    type="text"
+                    className="form-control"
+                    id="zip_code"
+                    name="zip_code"
+                    placeholder='Zip Code'
+                    value={DZipCode}
+                    onChange={e => setDZipCode(e.target.value)}
+                  />
+                </div>
+              </div>
+
+
+
+              <div className=' px-3 py-3'>
+
                 <div className='flex gap-3'>
                   <div className="mb-2 w-1/2">
                     <label className='text-2xl' htmlFor="date" >Date</label>
@@ -195,7 +286,7 @@ const LoadPost = () => {
                     />
                   </div>
                   <div className="mb-2 w-1/3">
-                    <label className='text-2xl' htmlFor="time" >Time</label>
+                    <label className='text-2xl' htmlFor="time" >Time Range</label>
                     <Input
                       size='md'
                       type="time"
@@ -207,7 +298,7 @@ const LoadPost = () => {
                     />
                   </div>
                   <div className="mb-2 w-1/3">
-                    <label className='text-2xl' htmlFor="time" >Time</label>
+                    <label className='text-2xl' htmlFor="time" >Time Range</label>
                     <Input
                       size='md'
                       type="time"
@@ -230,7 +321,7 @@ const LoadPost = () => {
               <div className=' px-3 py-3'>
                 <div className='flex gap-3'>
                   <div className="mb-2 w-1/2">
-                    <label className='text-2xl' htmlFor="price" >Price</label>
+                    <label className='text-2xl' htmlFor="price" >Offer Price</label>
                     <Input
                       size='md'
                       type="text"
@@ -244,18 +335,12 @@ const LoadPost = () => {
                     />
                   </div>
                   <div className="mb-2 w-1/3">
-                    <label className='text-2xl' htmlFor="equipment" >Equipment</label>
-                    <Input
-                      size='md'
-                      type="text"
-                      className="form-control"
-                      id="equipment"
-                      name="equipment"
-                      placeholder="Equipment"
-                      autoComplete='off'
-                      value={equipment}
-                      onChange={e => setEquipment(e.target.value)}
-                    />
+                    <label className='text-2xl' htmlFor="equipment" >Equ. Type</label>
+                    <Select variant='flushed' placeholder='Select' value={equipment} onChange={e => setEquipment(e.target.value)}>
+                      <option value='Reefer'>Reefer</option>
+                      <option value='Power only'>Power Only</option>
+                      <option value='Intermodal'>Intermodal</option>
+                    </Select>
                   </div>
                   <div className="mb-2 w-1/3">
                     <label className='text-2xl' htmlFor="weight" >Weight</label>
@@ -277,13 +362,13 @@ const LoadPost = () => {
 
             {/* --------------Price, Equipment, Weight End--------------- */}
 
-            {/* --------------Distance, Commodity Start--------------- */}
+            {/* --------------miles, Commodity Start--------------- */}
 
-            <div className='w-full '>
+            <div className='w-full'>
               <div className=' px-3 py-3'>
                 <div className='flex gap-3'>
                   <div className="mb-2 w-1/2">
-                    <label className='text-2xl' htmlFor="distance" >Distance</label>
+                    <label className='text-2xl' htmlFor="distance" >Miles</label>
                     <Input
                       size='md'
                       type="text"
@@ -309,6 +394,14 @@ const LoadPost = () => {
                       value={commodity}
                       onChange={e => setCommodity(e.target.value)}
                     />
+                  </div>
+                  <div className='flex  mb-2 w-1/2' style={{ marginTop: "40px" }}>
+                    <div className="mb-2 w-1/2">
+                      <Checkbox name='multiple' value={multiple} onChange={(e) => setMultiple('multiple')}>Multiple</Checkbox>
+                    </div>
+                    <div className="mb-2 w-1/2">
+                      <Checkbox name='multiple' value={rounds} onChange={(e) => setRounds('round')}>round</Checkbox>
+                    </div>
                   </div>
                 </div>
               </div>

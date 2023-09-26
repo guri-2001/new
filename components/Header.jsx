@@ -107,7 +107,7 @@ import Link from "next/link";
 import React from "react";
 import { signOut, useSession } from "next-auth/react";
 import style from '../styles/Header.module.css'
-import {  Image } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 import { CgProfile } from 'react-icons/cg';
 
 
@@ -117,14 +117,16 @@ const Header = () => {
 
     return (
         <div className={style.main}>
-            <div className='flex items-center justify-center'>
+            <Link href={'/dashboard'}>
+                < div className='flex items-center justify-center'>
                 <Image
                     src='/logo.png'
                     w={'150px'}
                     h={'75px'}
                     alt='Logo'
                 />
-            </div>
+        </div>
+            </Link >
 
             <div className='flex font-normal gap-5 justify-center items-center'>
                 <Link href='/dashboard' className={style.link}>
@@ -153,7 +155,7 @@ const Header = () => {
                     <button className="bg-sky-400 text-black hover:text-white" id={style.getBtn}>Get Started</button>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
